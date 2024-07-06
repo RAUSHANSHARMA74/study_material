@@ -1,0 +1,9 @@
+* {
+  margin: 0px;
+  padding: 0px;
+  background-color: #202020;
+}
+.app {
+  /* background-color: #202020; */
+  height: 100vh;
+}

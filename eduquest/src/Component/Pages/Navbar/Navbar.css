@@ -1,0 +1,25 @@
+.navbar {
+  /* border: 1px solid #43dac9; */
+  border-bottom: 1px double #43dac9;
+  padding: 15px 10px;
+  border-radius: 10px;
+}
+
+.navbar > span {
+  /* color: #00bfff; */
+  color: #d8da43;
+  font-size: 24px;
+}
+.navbar > span > span {
+  /* color: #d8da43; */
+  color: #00bfff;
+}
+
+@media screen and (max-width: 1024px) {
+}
+
+@media screen and (max-width: 950px) {
+}
+
+@media screen and (max-width: 600px) {
+}
