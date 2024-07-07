@@ -40,7 +40,8 @@
   margin: 10px 0px;
 }
 
-/* .videos {
+.videos {
+  /* border: 1px solid red; */
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
@@ -48,7 +49,7 @@
 }
 .videos > iframe {
   width: 100%;
-} */
+}
 
 @media screen and (max-width: 1024px) {
 }
