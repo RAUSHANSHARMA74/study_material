@@ -1,52 +1,30 @@
 import React, { useState } from 'react'
 import "./Form.css"
-const apiKey = import.meta.env.VITE_API_KEY;
+import { Api } from '../../Api/Api';
+import { postApi } from '../../Api/Api'
 
 export default function Form() {
+    const { Addsubject } = Api;
     const [form, setForm] = useState({
         url: "",
         teacher: "",
         subject: "",
         topic: "",
         position: ""
-    })
+    });
 
     const handleSubjectData = (e) => {
         const { id, value } = e.target
-        // console.log(id, value)
         setForm((pre) => ({
             ...pre,
             [id]: value
         }))
     }
 
-    const handleFormSubmit = (event) => {
+    const handleFormSubmit = async (event) => {
         event.preventDefault()
-        console.log(form)
-        addSubject(form)
+        console.log(await postApi(Addsubject, form))
     }
-
-    const addSubject = async (form) => {
-        try {
-            const res = await fetch(`${apiKey}/subject`, {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json",
-                },
-                body: JSON.stringify(form),
-            });
-
-            if (!res.ok) {
-                throw new Error(`HTTP error! status: ${res.status}`);
-            }
-
-            const data = await res.json();
-            console.log("Data added successfully:", data);
-        } catch (error) {
-            console.error("Something went wrong while adding data:", error);
-        }
-    };
-
 
     return (
         <div className="form" onSubmit={handleFormSubmit}>

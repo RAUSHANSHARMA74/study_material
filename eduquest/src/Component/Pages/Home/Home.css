@@ -16,28 +16,34 @@
   border-radius: 5px;
   /* color: #d8da43; */
   color: white;
-  width: 250px;
+  width: 300px;
   margin-right: 20px;
   margin: 5px 0px;
   padding: 5px 10px;
   outline: none;
   text-align: center;
 }
-
-.topics {
+.subject_name_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
-
 .subject_name,
 .topic_name {
-  border: 1px solid #4169e1;
   display: block;
   color: white;
-  width: 250px;
+  width: 300px;
   text-align: center;
   padding: 5px 0px;
   font-size: 24px;
   border-radius: 5px;
   margin: 10px 0px;
+}
+.topic_name {
+  border: 1px solid #4169e1;
+}
+.subject_name {
+  border-bottom: 1px solid #4169e1;
 }
 
 .videos {
@@ -45,7 +51,7 @@
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   gap: 20px;
-  margin-top: 50px;
+  margin: 10px 0px 50px 0px;
 }
 .videos > iframe {
   width: 100%;
