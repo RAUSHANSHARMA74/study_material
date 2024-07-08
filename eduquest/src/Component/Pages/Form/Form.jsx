@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import "./Form.css"
 import { Api } from '../../Api/Api';
 import { postApi } from '../../Api/Api'
+import { toastMessage } from '../../Api/Api';
+import { toast, ToastContainer } from 'react-toastify';
 
 export default function Form() {
     const { Addsubject } = Api;
@@ -23,11 +25,21 @@ export default function Form() {
 
     const handleFormSubmit = async (event) => {
         event.preventDefault()
-        console.log(await postApi(Addsubject, form))
+        let addSubjectData = await postApi(Addsubject, form)
+        console.log(addSubjectData);
+        toastMessage(addSubjectData.message);
+        setForm({
+            url: "",
+            teacher: "",
+            subject: "",
+            topic: "",
+            position: ""
+        })
     }
 
     return (
         <div className="form" onSubmit={handleFormSubmit}>
+            <ToastContainer />
 
             <form action="">
                 <label htmlFor="">URL</label>

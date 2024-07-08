@@ -2,8 +2,10 @@ import React, { useEffect, useState } from 'react'
 import "./Home.css"
 import { Api } from '../../Api/Api';
 import { getApi } from '../../Api/Api';
+import { toast, ToastContainer } from 'react-toastify';
+import { toastMessage } from '../../Api/Api';
 
-const apiKey = import.meta.env.VITE_API_KEY;
+
 
 export default function Home() {
     const { SubjectGroup, SubjectTopics } = Api;
@@ -37,11 +39,13 @@ export default function Home() {
                     console.log(subject, topic, "form under");
                     let getSubjectAndTopic = await getApi(`${SubjectTopics}?subject=${subject}`);
                     setSubjectandtopic(getSubjectAndTopic);
+                    // toastMessage(getSubjectAndTopic.message)
                     api += `?subject=${subject}`
                 }
 
                 let getSubjectByGroup = await getApi(api);
                 setSubjectsTopicsName(getSubjectByGroup);
+                // toastMessage(getSubjectByGroup.message)
 
 
             } catch (error) {
@@ -57,10 +61,14 @@ export default function Home() {
             try {
                 let getSubjectByGroup = await getApi(SubjectGroup);
                 let getSubjectAndTopic = await getApi(SubjectTopics);
+                // toastMessage(getSubjectAndTopic.message)
+                // toastMessage(getSubjectByGroup.message)
                 setSubjectsTopicsName(getSubjectByGroup);
                 setSubjectandtopic(getSubjectAndTopic);
             } catch (error) {
                 console.log("Something went wrong:", error);
+            } finally {
+                setLoading(false); // End loading
             }
         };
 
@@ -71,7 +79,7 @@ export default function Home() {
     // console.log(subjectsTopicsName)
     return (
         <div className="home">
-
+            <ToastContainer />
             <select name="subjects" id="subject" className='subject'
                 onChange={handleSubjectAndTopicChange}
                 value={selectSubjectAndTopic.subject}>
@@ -91,33 +99,39 @@ export default function Home() {
                 ))}
             </select>
 
-            {subjectsTopicsName.data?.map((subject, subjectIndex) => (
-                <div key={`subject-${subjectIndex}`}>
-                    <div className='subject_name_container'>
-                        <span className='subject_name'>
-                            {subject._id} - {subject.topics.length} topics
-                        </span>
-                    </div>
-                    {subject.topics.map((topic, topicIndex) => (
-                        <div key={`topic-${subjectIndex}-${topicIndex}`}>
-                            <span className='topic_name'>
-                                {topic.topic} - {topic.items.length} videos
+            {loading ? (<div className="parent_loader">
+                <div className="custom-loader"></div>
+            </div>) : (
+                subjectsTopicsName.data?.map((subject, subjectIndex) => (
+                    <div key={`subject-${subjectIndex}`}>
+                        <div className='subject_name_container'>
+                            <span className='subject_name'>
+                                {subject._id} - {subject.topics.length} topics
                             </span>
-                            <div className="videos">
-                                {topic.items.map((item, itemIndex) => (
-                                    <iframe
-                                        key={`video-${subjectIndex}-${topicIndex}-${itemIndex}`}
-                                        height="200"
-                                        src={item.url}
-                                        frameBorder="0"
-                                        allow="fullscreen"
-                                    ></iframe>
-                                ))}
-                            </div>
                         </div>
-                    ))}
-                </div>
-            ))}
+                        {subject.topics.map((topic, topicIndex) => (
+                            <div key={`topic-${subjectIndex}-${topicIndex}`}>
+                                <span className='topic_name'>
+                                    {topic.topic} - {topic.items.length} videos
+                                </span>
+                                <div className="videos">
+                                    {topic.items.map((item, itemIndex) => (
+                                        <iframe
+                                            key={`video-${subjectIndex}-${topicIndex}-${itemIndex}`}
+                                            height="200"
+                                            src={item.url}
+                                            frameBorder="0"
+                                            allow="fullscreen"
+                                        ></iframe>
+                                    ))}
+                                </div>
+                            </div>
+                        ))}
+                    </div>
+                ))
+            )}
+
+
 
 
 

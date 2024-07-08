@@ -1,4 +1,5 @@
-
+import { toast, ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const apiKey = import.meta.env.VITE_API_KEY;
 
 
@@ -44,3 +45,17 @@ export const postApi = async (api, value) => {
         console.error("Something went wrong while adding data:", error);
     }
 };
+
+export const toastMessage = (message) => {
+    toast.success(message, {
+        position: "top-right",
+        autoClose: 1000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "dark",
+        // transition: Bounce,
+    });
+}
