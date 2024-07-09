@@ -29,6 +29,7 @@ export default function Home() {
     useEffect(() => {
         const fetchSubjectAndTopic = async () => {
             try {
+                setLoading(true);
                 let { subject, topic } = selectSubjectAndTopic;
                 let api = SubjectGroup
                 if (subject && topic) {
@@ -50,6 +51,8 @@ export default function Home() {
 
             } catch (error) {
                 console.log("Something went wrong:", error);
+            } finally {
+                setLoading(false); // End loading
             }
         };
 
@@ -59,6 +62,7 @@ export default function Home() {
     useEffect(() => {
         const fetchInitialData = async () => {
             try {
+                setLoading(true);
                 let getSubjectByGroup = await getApi(SubjectGroup);
                 let getSubjectAndTopic = await getApi(SubjectTopics);
                 // toastMessage(getSubjectAndTopic.message)
